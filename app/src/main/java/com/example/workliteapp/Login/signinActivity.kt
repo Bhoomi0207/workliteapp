@@ -36,13 +36,14 @@ class signinActivity : AppCompatActivity(){
         //setContentView(binding.root)
        init()
         sendOTPButton.setOnClickListener {
+            //sendToMain()
             number = phoneNumberET.text.trim().toString()
             if (number.isNotEmpty()) {
                 if (number.length == 10) {
                     number = "+91$number"
                     val options = PhoneAuthOptions.newBuilder(auth)
                         .setPhoneNumber(number) // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setTimeout(10L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this) // Activity (for callback binding)
                         .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
                         .build()
@@ -71,11 +72,12 @@ class signinActivity : AppCompatActivity(){
                         sendToMain()
 
                     } else {
-                        Log.d(ContentValues.TAG, "signInWithCredential:failure", task.exception)
+                        Log.d("TAG", "signInWithCredential:failure, ${task.exception.toString()}")
                         // Sign in failed, display a message and update the UI
 
                         if (task.exception is FirebaseAuthInvalidCredentialsException) {
                             // The verification code entered was invalid
+                            Log.d("TAG", "signInWithCredential:failure, ${task.exception.toString()}")
                         }
                         // Update UI
                     }
@@ -104,12 +106,13 @@ class signinActivity : AppCompatActivity(){
 
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
-                    Log.d(TAG, "onVerificationFailed: ${e.toString()}")
+                    Log.d("TAG", "onVerificationFailed: ${e.toString()}")
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
-                    Log.d(TAG, "onVerificationFailed: ${e.toString()}")
+                    Log.d("TAG", "onVerificationFailed: ${e.toString()}")
                 } else if (e is FirebaseAuthMissingActivityForRecaptchaException) {
                     // reCAPTCHA verification attempted with null Activity
+
                 }
 
                 // Show a message and update the UI
@@ -136,7 +139,7 @@ class signinActivity : AppCompatActivity(){
     override fun onStart(){
         super.onStart()
         if(auth.currentUser!= null){
-          //  startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this,MainActivity::class.java))
             }
         }
     }
