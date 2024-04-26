@@ -48,7 +48,7 @@ class otpActivity : AppCompatActivity() {
         }
         verifyBtn.setOnClickListener {
             val typedOTP=inputOTP.toString()
-            //sendToMain()
+            sendToMain()
 
             if (typedOTP.isNotEmpty()){
                 if(typedOTP.length==6){
