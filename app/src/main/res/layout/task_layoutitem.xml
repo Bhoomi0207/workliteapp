@@ -38,7 +38,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Completed"
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of fe87433 (Merge branch 'Bhoomi0207:master' into master)
                 android:textColor="@color/black"
                 android:onClick="onCheckboxClicked"/>
         </LinearLayout>
