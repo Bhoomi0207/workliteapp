@@ -48,7 +48,7 @@ class otpActivity : AppCompatActivity() {
         }
         verifyBtn.setOnClickListener {
             val typedOTP=inputOTP.toString()
-            sendToMain()
+            //sendToMain()
 
             if (typedOTP.isNotEmpty()){
                 if(typedOTP.length==6){
@@ -60,7 +60,7 @@ class otpActivity : AppCompatActivity() {
                     Toast.makeText(this,"Please Enter Correct OTP", Toast.LENGTH_SHORT).show()
                 }
             }else{
-                //Toast.makeText(this,"Please Enter OTP", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Please Enter OTP", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -102,12 +102,14 @@ class otpActivity : AppCompatActivity() {
             // This callback is invoked in an invalid request for verification is made,
             // for instance if the the phone number format is not valid.
 
-            Log.w(TAG, "onVerificationFailed", e)
+            Log.d("TAG", "onVerificationFailed", e)
 
             if (e is FirebaseAuthInvalidCredentialsException) {
                 // Invalid request
+            Log.d("TAG", "onVerificationFailed: ${e.toString()}")
             } else if (e is FirebaseTooManyRequestsException) {
                 // The SMS quota for the project has been exceeded
+                Log.d("TAG", "onVerificationFailed: ${e.toString()}")
             } else if (e is FirebaseAuthMissingActivityForRecaptchaException) {
                 // reCAPTCHA verification attempted with null Activity
             }
@@ -122,7 +124,7 @@ class otpActivity : AppCompatActivity() {
             // The SMS verification code has been sent to the provided phone number, we
             // now need to ask the user to enter the code and then construct a credential
             // by combining the code with a verification ID.
-            Log.d(TAG, "onCodeSent:$verificationId")
+            Log.d("TAG", "onCodeSent:$verificationId")
 
             // Save verification ID and resending token so we can use them later
             OTP=verificationId
@@ -139,7 +141,7 @@ class otpActivity : AppCompatActivity() {
                     sendToMain()
 
                 } else {
-                    Log.d(TAG, "signInWithPhoneAuthCredential: ${task.exception.toString()}")
+                    Log.d("TAG", "signInWithPhoneAuthCredential: ${task.exception.toString()}")
                     // Sign in failed, display a message and update the UI
 
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
